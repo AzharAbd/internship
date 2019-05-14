@@ -2,4 +2,10 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to #{nama}
+  form(action="/", mehtod ="POST")
+    input(name = "email",type="email", placeholder="Enter your email adress")
+    input(name = "nama", type="text",placeholder="Enter your name")
+    button(type="Submit") Submit
+  p #{nama}
+  p #{email}
