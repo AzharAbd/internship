@@ -2,11 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 let page = require('../controllers/page');
+const db = require('../controllers/query');
 /* GET home page. */
 router.get('/', page.landing);
-router.get('/azhar', page.azhar);
-router.get('/submit', page.v2);
 
-// router.post('/', page.submit_lead);
+// router.get('/result', page.show_result);
+router.get('/result', db.checkKey );
+
+
 
 module.exports = router;

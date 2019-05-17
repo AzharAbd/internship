@@ -3,9 +3,15 @@ extends layout
 block content
   h1= title
   p Welcome to #{nama}
-  form(action="/", mehtod ="POST")
-    input(name = "email",type="email", placeholder="Enter your email adress")
+  form(action='/result', method ='get')
+    input(name = "api_key", type="text",placeholder="Enter your API key")
+    br
+    input(name = "source", type="text",placeholder="Enter preferred source (if any)")
+    br
+    input(name = "keyword", type="text",placeholder="Enter keyword")
+    br
     input(name = "nama", type="text",placeholder="Enter your name")
+    br
     button(type="Submit") Submit
   p #{nama}
   p #{email}
