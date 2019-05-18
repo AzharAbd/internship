@@ -13,18 +13,42 @@ pool.connect();
 
 const getArticles = function (req, resp, check) {    
     if (check){
-        pool.query('SELECT * FROM article', function (error, results) {
+        var keyword;
+        var source;
+        var persen = '%';
+        if (req.query.keyword === ""){
+            keyword = persen;
+            console.log("Keyword is empty");
+        } else {
+            keyword = persen.concat(req.query.keyword,persen);
+            console.log("Keyword is NOT empty");
+        }
+        console.log("keyword:", keyword);
+        if (req.query.source === ""){
+            source = persen;
+            console.log("Source is empty");
+        } else {
+            source = req.query.source;
+            console.log("Source is NOT empty");
+        }
+        sort_by = req.query.sort_by;
+        console.log("order by:", sort_by);
+        console.log("source:",source);
+        pool.query("SELECT * FROM article WHERE description LIKE $1 AND source_name LIKE $2 order by publishedAt;", [keyword,source],  function (error, results) {
             if (error) {
                 throw error
             }
-            if (results.rows.length == 0){
-                resp.status(200).json(null);
-            } else {
+            if (results.rows.length != 0){
+                console.log("Data tersedia");
                 resp.status(200).json(results.rows);
+            } else {
+                console.log("data tidak ada");
+                resp.status(200).json();
             }
         })
     } else {
-        resp.status(200).json(null);
+        console.log("api key salah");
+        resp.status(200).json();
     }
 }
 
@@ -55,3 +79,5 @@ module.exports = {
     getArticles,
     checkKey
 }
+
+//debug=myapp:* npm start
