@@ -3,15 +3,15 @@ extends layout
 block content
   h1= title
   form(action='/result', method ='get')
-    input(name = "api_key", type="text",placeholder="Enter your API key")
+    input(name = "key", type="text",placeholder="Enter your API key")
     br
     input(name = "source", type="text",placeholder="Enter preferred source (if any)")
     br
-    input(name = "keyword", type="text",placeholder="Enter keyword")
+    input(name = "q", type="text",placeholder="Enter keyword")
     br
     -var sort_types = ["publishedAt", "id"]
-    select(name = "sort_by")
-      option(value="publishedAt") publishedAt
-      option(value="id") id
+    select(name = "sortBy")
+      each sort_type in sort_types 
+        option(value=sort_type) #{sort_type}
     br
     button(type="Submit") Submit
